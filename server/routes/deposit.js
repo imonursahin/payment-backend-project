@@ -9,10 +9,7 @@ let accountData = new AccountData().getInstance()
 // Deposit - yatırma
 router.post('/', (req, res, next) => {
 
-    let balance = accountData.getBalance()
-
     let accountInfo = accountData.getAccount()
-
 
     let accountNumber = req.body.accountNumber
     let amount = req.body.amount
@@ -20,12 +17,20 @@ router.post('/', (req, res, next) => {
     let accountIndex = accountInfo.findIndex(item => item.accountNumber == accountNumber)
 
     if (accountIndex != null) {
-        accountInfo[accountIndex].balance += amount
-        accountData.updateAccount(accountInfo)
-        res.status(200).json({
-            message: "Succesfuly",
 
-        })
+        if (accountInfo[accountIndex].accountType == "individual") {
+            accountInfo[accountIndex].balance += amount
+            accountData.updateAccount(accountInfo)
+            res.status(200).json({
+                message: "Succesfuly",
+
+            })
+
+        } else {
+            res.status(400).json({
+                message: "Only individual accounts can deposit funds"
+            })
+        }
 
     } else {
         res.status(404).json({
