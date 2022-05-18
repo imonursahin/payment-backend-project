@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const AccountData = require('./account_data');
 
+let accountData = new AccountData().getInstance()
 
-let accounts = [];
-
+let accountInfo = accountData.getAccount()
+let balance = accountData.getBalance()
 
 // Create Account
 
@@ -15,7 +17,7 @@ router.post('/', (req, res, next) => {
     let ownerName = req.body.ownerName
     let accountType = req.body.accountType.toLowerCase()
 
-    let isExist = accounts.find(item => item.accountNumber == accountNumber)
+    let isExist = accountInfo.find(item => item.accountNumber == accountNumber)
 
 
     if (currencyCode != "TRY" && currencyCode != "USD" && currencyCode != "EUR") {
@@ -32,12 +34,14 @@ router.post('/', (req, res, next) => {
 
 
     } else {
-        accounts.push({
+        accountData.pushAccount({
             accountNumber: accountNumber,
             currencyCode: currencyCode,
             ownerName: ownerName,
-            accountType: accountType
+            accountType: accountType,
+            balance
         })
+
         res.status(200).json({
             message: "Succesfuly"
         })
@@ -50,15 +54,13 @@ router.post('/', (req, res, next) => {
 router.get('/:accountNumber', (req, res, next) => {
 
     let accountNumber = req.params.accountNumber
-
-    let isExist = accounts.find(item => item.accountNumber == accountNumber)
-
-    let accountInfo = isExist
+    let accountDetail = accountInfo.find(item => item.accountNumber == accountNumber)
 
 
-    if (isExist) {
+    if (accountDetail) {
         res.status(200).json({
-            accountInfo
+            accountDetail,
+
         })
     } else {
         res.status(404).json({
