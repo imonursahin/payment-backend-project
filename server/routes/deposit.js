@@ -6,7 +6,7 @@ const AccountData = require('./account_data');
 let accountData = new AccountData().getInstance()
 
 
-// Deposit - yatırma
+// Deposit
 router.post('/', (req, res, next) => {
 
     let accountInfo = accountData.getAccount()
@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
         }
 
     } else {
-        res.status(404).json({
+        res.status(400).json({
             message: "Account not found"
         })
     }

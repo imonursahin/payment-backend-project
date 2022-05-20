@@ -3,6 +3,7 @@ class AccountData {
         this.account = []
         this.balance = 0
     }
+    
 
     pushAccount(item) {
         this.account.push(item);

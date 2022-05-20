@@ -21,16 +21,29 @@ router.post('/', (req, res, next) => {
 
 
     if (currencyCode != "TRY" && currencyCode != "USD" && currencyCode != "EUR") {
-        res.send("Undefined currency code")
+        res.status(400).json({
+            message: "Undefined currency code"
+        })
 
     } else if (accountType != "individual" && accountType != "corporate") {
-        res.send("Undefined account type")
+        res.status(400).json({
+            message: "Undefined account type"
+        })
 
     } else if (accountNumber.constructor != Number) {
-        res.send("Account number must be a numeric value")
+        res.status(400).json({
+            message: "Account number must be a numeric value"
+        })
+
+    } else if (accountNumber != parseInt(accountNumber)) {
+        res.status(400).json({
+            message: "Account number must be integer"
+        })
 
     } else if (isExist) {
-        res.send("Already have an account")
+        res.status(400).json({
+            message: "Already have an account"
+        })
 
 
     } else {
