@@ -1,9 +1,10 @@
 const express = require('express');
-const { accounts } = require('./account');
 const router = express.Router();
-const AccountData = require('./account_data');
+const AccountData = require('../data/account_data');
+const TransactionData = require('../data/transaction_data');
 
 let accountData = new AccountData().getInstance()
+let transactionHistory = new TransactionData().getInstance()
 
 // Payment
 router.post('/', (req, res, next) => {
@@ -16,18 +17,28 @@ router.post('/', (req, res, next) => {
     let senderAccountIndex = accountInfo.findIndex(item => item.accountNumber == senderAccount)
     let receiverAccountIndex = accountInfo.findIndex(item => item.accountNumber == receiverAccount)
 
-    if (senderAccountIndex != null && receiverAccountIndex != null) {
+
+    // Current Date
+    var date = new Date((dt = new Date()).getTime() - dt.getTimezoneOffset() * 60000)
+        .toISOString()
+        .replace(/(.*)T(.*)\..*/, '$1 $2')
+
+    if (senderAccountIndex >= 0 && receiverAccountIndex >= 0) {
         if (accountInfo[senderAccountIndex].accountType == "individual" && accountInfo[receiverAccountIndex].accountType == "corporate") {
 
             accountInfo[senderAccountIndex].balance -= amount
             accountInfo[receiverAccountIndex].balance += amount
             accountData.updateAccount(accountInfo)
+            transactionHistory.pushTransaction({
+                accountNumber: accountNumber,
+                amount: amount,
+                transactionType: "payment",
+                createdAt: date
+            })
             res.status(200).json({
                 message: "Succesfuly",
 
             })
-
-
 
         } else {
             res.status(400).json({

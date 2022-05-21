@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const AccountData = require('./account_data');
+const AccountData = require('../data/account_data');
 
 let accountData = new AccountData().getInstance()
 

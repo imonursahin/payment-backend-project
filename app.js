@@ -22,6 +22,10 @@ app.use('/deposit', deposit)
 const withdraw = require('./server/routes/withdraw');
 app.use('/withdraw', withdraw)
 
+// Transaction History
+const getTransaction = require('./server/routes/accounting');
+app.use('/accounting', getTransaction)
+
 
 module.exports = app;
 

@@ -1,7 +1,7 @@
 class AccountData {
     constructor() {
         this.account = []
-        this.balance = 0
+        this.balance = 0.00
     }
     
 
@@ -11,10 +11,6 @@ class AccountData {
 
     getAccount() {
         return this.account
-    }
-
-    setBalance(value) {
-        this.balance = value
     }
 
     getBalance() {
