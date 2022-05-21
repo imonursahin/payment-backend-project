@@ -82,5 +82,5 @@ POST http://localhost:5050/withdraw
 
 ## 6. Transaction History
 ```
-GET http://localhost:5050/accounting/2
+GET http://localhost:5050/accounting/1
 ```
