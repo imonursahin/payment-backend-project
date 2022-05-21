@@ -10,15 +10,11 @@ Tool: Postman
 
 # Project Detail
 
-In this challenge, you are asked to create a payment rest api that allows users to create an
-account (both individual or corporate), deposit/withdraw money and make a payment.
-Only individual accounts can deposit or withdraw money. Payments can only be wired from an
-individual account to a corporate account.
-Each money transaction should create an accounting with transaction amount, transaction type
-and account information. These transactions should be able to be listed as accounting history.
-All accounts and accounting transactions should be held in memory, so no database
-implementation is required.
-Each route should have its own input and business validation. 
+- In this challenge, you are asked to create a payment rest api that allows users to create an account (both individual or corporate), deposit/withdraw money and make a payment.
+- Only individual accounts can deposit or withdraw money. Payments can only be wired from an individual account to a corporate account.
+- Each money transaction should create an accounting with transaction amount, transaction type and account information. These transactions should be able to be listed as accounting history.
+- All accounts and accounting transactions should be held in memory, so no database implementation is required.
+- Each route should have its own input and business validation. 
 
 # Sample Route Data
 
